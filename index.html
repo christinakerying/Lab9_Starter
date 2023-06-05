@@ -87,6 +87,15 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "0658691cf20c4b91ae7ac4fe622abbbe",
+      application: "lab9"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -102,6 +111,156 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    // step 2: the buttons
+    // Console Log
+    errorBtns[0].onclick = (e) => {
+      console.log("Console Log demo");
+    };
+
+    // Console Error
+    errorBtns[1].onclick = (e) => {
+      console.error("Console error demo");
+    };
+
+    // Console Count
+    errorBtns[2].onclick = (e) => {
+      console.count("Count Button");
+    };
+
+    // Console Warn
+    errorBtns[3].onclick = (e) => {
+      console.warn("Console warn button");
+    };
+
+    // Console Assert
+    errorBtns[4].onclick = (e) => {
+      console.assert(2 === 3, {number: 2, errorMsg: 'The number does not equal 3'});
+    };
+
+    // Console Clear
+    errorBtns[5].onclick = (e) => {
+      console.clear();
+    };
+
+    // Console Dir
+    errorBtns[6].onclick = (e) => {
+      console.dir(document.head);
+    };
+
+    // Console dirxml
+    errorBtns[7].onclick = (e) => {
+      console.dirxml(document);
+    };
+
+    // Console Group Start
+    errorBtns[8].onclick = (e) => {
+      console.group("console.group");
+    };
+
+    // Console Group End
+    errorBtns[9].onclick = (e) => {
+      console.groupEnd("console.group");
+    };
+
+    // Console Table
+    errorBtns[10].onclick = (e) => {
+      console.table([
+        {
+          name: "Christina",
+          num: 1,
+        },
+        {
+          name: 'Sophia',
+          num: 2,
+        },
+        {
+          name: 'Matan',
+          num: 3,
+        },
+      ]);
+    };
+
+    // Start Timer
+    errorBtns[11].onclick = (e) => {
+      console.time("Timer Button");
+    };
+
+    // End Timer
+    errorBtns[12].onclick = (e) => {
+      console.timeEnd("Timer Button");
+    };
+
+    // Console Trace
+    errorBtns[13].onclick = (e) => {
+      const first = () => { second(); };
+      const second = () => { third(); };
+      const third = () => { fourth(); };
+      const fourth = () => { console.trace(); };
+      first();
+    };
+
+    // Trigger a Global Error
+    errorBtns[14].onclick = (e) => {
+      throw new Error("Global Error...");
+    };
+
+    window.addEventListener('error', () => {
+      console.log("an error happened :( )");
+    });
+
+    // step 3: Try Catch
+    function squared(num) {
+      try {
+        if (typeof num === "number") {
+          console.log(`The value of ${num} squared is ${Math.pow(num, 2)}.`);
+        } else {
+          throw new SyntaxError("Input Type Error");
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        console.log(`Input: ${num}.`);
+        console.log(`Data types: ${typeof num}.`);
+      }
+    }
+
+    squared(2);
+    squared("2");
+
+    // step 4: Throw Custom Error
+    class InputError extends Error {
+      constructor(msg) {
+        super(msg);
+        this.name = "InputError";
+      }
+    }
+
+    function cubed(num) {
+      try {
+        if (typeof num === "number") {
+          console.log(`The value of ${num} cubed is ${Math.pow(num, 3)}.`);
+        } else {
+          throw new InputError;
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        console.log(`Input: ${num}.`);
+        console.log(`Data types: ${typeof num}.`);
+      }
+    }
+
+    cubed(2);
+    cubed("2");
+
+    // step 5: Global Error Handler
+    function badCode() {
+      abooM('BAD CODE'); 
+    }
+    badCode();
+
+    TrackJS.track('Testing TrackJS!');
   </script>
 </body>
 
